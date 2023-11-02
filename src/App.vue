@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { Graph } from "./entities/Graph";
 import NetworkGraphVisualiser from "./components/NetworkGraphVisualiser.vue";
 
@@ -27,8 +27,4 @@ const addEdge = (node1Id: string, node2Id: string) => {
 const removeNode = (id: string) => {
   graph.value.removeNode(id);
 };
-
-watch(graph.value, (newGraph) => {
-  newGraph.findArticulationPoints();
-});
 </script>
