@@ -1,12 +1,35 @@
 <template>
   <div class="w-full flex justify-center">
-    <network-graph-visualiser
-      :graph="graph"
-      :add-node="addNode"
-      :add-edge="addEdge"
-      :remove-node="removeNode"
-      :articulation-points="articulationPointsNodeIds"
-    />
+    <div class="max-w-screen-lg p-4 w-full flex flex-col gap-y-2">
+      <network-graph-visualiser
+        :graph="graph"
+        :add-node="addNode"
+        :add-edge="addEdge"
+        :remove-node="removeNode"
+        :articulation-points="articulationPointsNodeIds"
+      />
+      <div class="bg-blue-50 text-sm px-4 py-2 border-blue-100 shadow-sm">
+        <p class="underline">This work is done By:</p>
+        <ul>
+          <li>
+            Islem Medjahdi
+            <a
+              href="mailto:ki_medjahdi@esi.dz"
+              class="text-blue-600 hover:text-blue-700 hover:underline"
+              >ki_medjahdi@esi.dz</a
+            >
+          </li>
+          <li class="text-sm">
+            Khaled Abderrahmene Habouche
+            <a
+              href="mailto:kk_habouche@esi.dz"
+              class="text-blue-600 hover:text-blue-700 hover:underline"
+              >kk_habouche@esi.dz</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 

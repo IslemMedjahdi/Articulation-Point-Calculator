@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-lg w-full p-4 flex flex-col gap-2">
+  <div class="w-full flex flex-col gap-2">
     <div class="flex justify-center">
       <p class="font-serif text-2xl font-medium">
         Articulation Point Calculator
@@ -9,28 +9,25 @@
     <div
       class="flex items-center flex-wrap gap-2 bg-blue-50 px-4 py-2 border-blue-100"
     >
-      <div class="flex items-center gap-2 w-fit">
-        <label>Node:</label>
-        <el-input v-model="newNodeValue" placeholder="Node Value" />
-        <el-button type="primary" plain @click="onAddNode">Add Node</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="onRemoveSelectedNodes"
-          :disabled="selectedNodes.length === 0"
-          >Remove Selected Nodes</el-button
-        >
-      </div>
-      <div class="flex items-center gap-2 w-fit">
-        <label>Edge:</label>
-        <el-button
-          type="primary"
-          plain
-          :disabled="selectedNodes.length != 2"
-          @click="onAddEdge"
-          >Add Edge</el-button
-        >
-      </div>
+      <el-input v-model="newNodeValue" placeholder="Node Value">
+        <template #append>
+          <el-button :icon="Plus" @click="onAddNode" />
+        </template>
+      </el-input>
+      <el-button
+        type="primary"
+        plain
+        @click="onRemoveSelectedNodes"
+        :disabled="selectedNodes.length === 0"
+        >Remove Selected Nodes</el-button
+      >
+      <el-button
+        type="primary"
+        plain
+        :disabled="selectedNodes.length != 2"
+        @click="onAddEdge"
+        >Add Edge</el-button
+      >
     </div>
     <div class="w-full h-96 border-blue-100 border-2">
       <v-network-graph
@@ -40,31 +37,11 @@
         v-model:selected-nodes="selectedNodes"
       />
     </div>
-    <div class="bg-blue-50 text-sm px-4 py-2 border-blue-100">
-      <p class="underline">This work is done By:</p>
-      <ul>
-        <li>
-          Islem Medjahdi
-          <a
-            href="mailto:ki_medjahdi @esi.dz"
-            class="text-blue-600 hover:text-blue-700"
-            >ki_medjahdi @esi.dz</a
-          >
-        </li>
-        <li class="text-sm">
-          Khaled Abderrahmene Habouche
-          <a
-            href="mailto:kk_habouche@esi.dz"
-            class="text-blue-600 hover:text-blue-700"
-            >kk_habouche@esi.dz</a
-          >
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Plus } from "@element-plus/icons-vue";
 import { ref, defineProps, watch, reactive } from "vue";
 import { VNetworkGraph, defineConfigs } from "v-network-graph";
 import "v-network-graph/lib/style.css";
