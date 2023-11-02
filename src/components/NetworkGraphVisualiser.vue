@@ -6,7 +6,9 @@
       </p>
     </div>
     <el-alert title="To select multiple edges, Shift+click" type="info" />
-    <div class="flex items-center flex-wrap gap-2 bg-blue-50 px-4 py-2">
+    <div
+      class="flex items-center flex-wrap gap-2 bg-blue-50 px-4 py-2 border-blue-100"
+    >
       <div class="flex items-center gap-2 w-fit">
         <label>Node:</label>
         <el-input v-model="newNodeValue" placeholder="Node Value" />
@@ -37,6 +39,27 @@
         :edges="edges"
         v-model:selected-nodes="selectedNodes"
       />
+    </div>
+    <div class="bg-blue-50 text-sm px-4 py-2 border-blue-100">
+      <p class="underline">This work is done By:</p>
+      <ul>
+        <li>
+          Islem Medjahdi
+          <a
+            href="mailto:ki_medjahdi @esi.dz"
+            class="text-blue-600 hover:text-blue-700"
+            >ki_medjahdi @esi.dz</a
+          >
+        </li>
+        <li class="text-sm">
+          Khaled Abderrahmene Habouche
+          <a
+            href="mailto:kk_habouche@esi.dz"
+            class="text-blue-600 hover:text-blue-700"
+            >kk_habouche@esi.dz</a
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </template>
