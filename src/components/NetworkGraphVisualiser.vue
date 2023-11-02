@@ -14,7 +14,7 @@
         <el-button
           type="primary"
           plain
-          @click="onRemoveNodes"
+          @click="onRemoveSelectedNodes"
           :disabled="selectedNodes.length === 0"
           >Remove Selected Nodes</el-button
         >
@@ -26,7 +26,7 @@
           plain
           :disabled="selectedNodes.length != 2"
           @click="onAddEdge"
-          >add</el-button
+          >Add Edge</el-button
         >
       </div>
     </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, watch } from "vue";
+import { ref, defineProps, watch, reactive } from "vue";
 import { VNetworkGraph, defineConfigs } from "v-network-graph";
 import "v-network-graph/lib/style.css";
 import type { Graph } from "@/entities/Graph";
@@ -53,11 +53,35 @@ type Props = {
   addNode: (value: string) => void;
   removeNode: (id: string) => void;
   addEdge: (from: string, to: string) => void;
+  articulationPoints: string[];
 };
 const props = defineProps<Props>();
 
 const nodes = ref<Nodes>({});
 const edges = ref<Edges>({});
+const selectedNodes = ref<string[]>([]);
+
+const configs = reactive(
+  defineConfigs({
+    node: {
+      selectable: true,
+      label: {
+        fontSize: 11,
+        text: (node) =>
+          (node.name || "") +
+          (props.articulationPoints.includes(node.id) ? " ( AP )" : ""),
+      },
+      normal: {
+        color: (node) =>
+          props.articulationPoints.includes(node.id) ? "#f59e0b" : "#4466cc",
+      },
+      hover: {
+        color: (node) =>
+          props.articulationPoints.includes(node.id) ? "#f59e0b" : "#4466cc",
+      },
+    },
+  })
+);
 
 watch(props.graph, (newGraph) => {
   nodes.value = {};
@@ -66,6 +90,7 @@ watch(props.graph, (newGraph) => {
   newGraph.getNodes().forEach((node) => {
     nodes.value[node.getId()] = {
       name: node.getValue(),
+      id: node.getId(),
     };
   });
 
@@ -85,7 +110,7 @@ const onAddNode = () => {
   newNodeValue.value = "";
 };
 
-const onRemoveNodes = () => {
+const onRemoveSelectedNodes = () => {
   selectedNodes.value.forEach((nodeId) => {
     delete nodes.value[nodeId];
     props.removeNode(nodeId);
@@ -100,10 +125,4 @@ const onAddEdge = () => {
     props.addEdge(source, target);
   }
 };
-
-const selectedNodes = ref<string[]>([]);
-
-const configs = defineConfigs({
-  node: { selectable: true },
-});
 </script>
